@@ -84,7 +84,7 @@ Frontend UI (React + Tailwind)
 ### 1. Clone the Repository
 
 ```bash
-git clone <https://github.com/Deon2005/BIS_RAG>
+git clone <https://github.com/Deon2005/BIS_RAG.git>
 cd <BIS_RAG>
 ```
 
