@@ -2,6 +2,7 @@ import time, sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../'))
 from src.generation.rationale_generator import expand_query, generate_rationale
 from src.generation.hallucination_guard import guard
+from src.backend.retriever import retrieve
 
 def mock_retrieve(query):
     return [
@@ -12,7 +13,7 @@ def mock_retrieve(query):
         {"standard_code": "IS 1786:2008", "text": "IS 1786:2008 covers high strength deformed steel bars and wires for concrete reinforcement including tensile strength, elongation, and bend test requirements.", "category": "Steel", "confidence": 0.68},
     ]
 
-def run_pipeline(query, retriever=None, expand=False):
+def run_pipeline(query, retriever=retrieve, expand=False):
     start = time.time()
 
     if expand:
@@ -25,7 +26,7 @@ def run_pipeline(query, retriever=None, expand=False):
     else:
         expanded = query
 
-    chunks = (retriever or mock_retrieve)(expanded)
+    chunks = retriever(query)
     print(f"    Retrieved {len(chunks)} chunks")
 
     generation_ok = False

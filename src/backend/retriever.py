@@ -94,7 +94,7 @@ def rrf(results_list, k=60):
 def retrieve(query, top_k=5):
     try:
         if not is_initialized and not init_retriever():
-            return ["UNKNOWN"]
+            return [{"standard_code": "UNKNOWN", "text": "Initialization failed", "category": "Error", "confidence": 0.0}]
 
         vec = vector_search(query, k=20)
         bm = bm25_search(query, k=20)
@@ -104,23 +104,28 @@ def retrieve(query, top_k=5):
         standard_scores = {}
         for idx, score in fused:
             if 0 <= idx < len(chunks):
-                std = chunks[idx].get("standard_id", "UNKNOWN")
+                std = chunks[idx].get("standard_code", "UNKNOWN")
                 standard_scores[std] = standard_scores.get(std, 0) + score
 
         ranked = sorted(standard_scores.items(), key=lambda x: x[1], reverse=True)
         
         results = []
+        seen_stds = set()
+        
         for std, _ in ranked:
-            if std not in results:
-                results.append(std)
+            # Find the best chunk for this standard
+            best_chunk = next((c for c in chunks if c.get("standard_code", "UNKNOWN") == std), None)
+            if best_chunk and std not in seen_stds:
+                results.append(best_chunk)
+                seen_stds.add(std)
             if len(results) == top_k:
                 break
 
         if len(results) == 0:
-            return ["UNKNOWN"]
+            return []
 
         return results
 
     except Exception as e:
         print(f"Retriever error: {e}", file=sys.stderr)
-        return ["UNKNOWN"]
+        return [{"standard_code": "UNKNOWN", "text": f"Error: {str(e)}", "category": "Error", "confidence": 0.0}]
