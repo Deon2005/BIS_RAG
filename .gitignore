@@ -1,0 +1,23 @@
+# Environments
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Data & Indices
+data/raw.txt
+data/processed_chunks.json
+data/faiss.index
+data/bm25.pkl
+
+# Ignore PDFs to prevent bloating the repo
+*.pdf
+
+# OS generated files
+.DS_Store
+Thumbs.db
