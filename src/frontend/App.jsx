@@ -292,9 +292,14 @@ export default function App() {
                           )}
                           
                           <div className="mt-6 flex justify-end">
-                             <button className="flex items-center gap-2 text-xs font-medium text-white hover:underline underline-offset-4">
+                             <a 
+                               href={`${API_ORIGIN}/document`} 
+                               target="_blank" 
+                               rel="noopener noreferrer" 
+                               className="flex items-center gap-2 text-xs font-medium text-white hover:underline underline-offset-4"
+                             >
                                Open Full Document <ChevronRight className="h-3 w-3" />
-                             </button>
+                             </a>
                           </div>
                         </div>
                       </div>

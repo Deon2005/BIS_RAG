@@ -3,7 +3,9 @@ BIS RAG — FastAPI application entry point.
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
+import os
 
 from src.api.pipeline import run_pipeline
 
@@ -31,6 +33,13 @@ def read_root() -> dict:
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
+
+@app.get("/document")
+def get_document():
+    pdf_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../dataset.pdf"))
+    if os.path.exists(pdf_path):
+        return FileResponse(pdf_path, media_type="application/pdf", filename="dataset.pdf")
+    return {"error": "Document not found"}
 
 @app.post("/recommend")
 def recommend(request: QueryRequest) -> dict:
