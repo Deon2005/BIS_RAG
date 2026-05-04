@@ -44,7 +44,13 @@ def run_pipeline(query, retriever=None, expand=False):
         except Exception as e:
             print(f"    Guard failed: {e}", flush=True)
 
-
+    # Merge chunk details (category, text, confidence) into the standards
+    for s in standards:
+        match = next((c for c in chunks if c.get("standard_code") == s.get("standard_code")), None)
+        if match:
+            s["category"] = match.get("category", "")
+            s["snippet"] = match.get("text", "")
+            s["score"] = match.get("confidence", 0.0)
 
     latency = round(time.time() - start, 3)
 

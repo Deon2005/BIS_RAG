@@ -12,8 +12,10 @@ def evaluate_results(results_file):
     try:
         with open(results_file, "r") as f:
             data = json.load(f)
+        with open("data/public_test.json", "r") as f:
+            ground_truth = {item["id"]: item.get("expected_standards", []) for item in json.load(f)}
     except Exception as e:
-        print(f"Error reading results file: {e}")
+        print(f"Error reading files: {e}")
         sys.exit(1)
 
     total_queries = len(data)
@@ -26,8 +28,9 @@ def evaluate_results(results_file):
     total_latency = 0.0
 
     for item in data:
-        # Normalize expected and retrieved standards
-        expected = set(normalize_std(std) for std in item.get("expected_standards", []))
+        qid = item.get("id")
+        expected_raw = ground_truth.get(qid, [])
+        expected = set(normalize_std(std) for std in expected_raw)
         retrieved = [normalize_std(std) for std in item.get("retrieved_standards", [])]
         latency = item.get("latency_seconds", 0.0)
 

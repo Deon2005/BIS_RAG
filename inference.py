@@ -38,7 +38,6 @@ def main():
             result = run_pipeline(query_text)
             results.append({
                 "id": query_id,
-                "expected_standards": item.get("expected_standards", []),
                 "retrieved_standards": result["retrieved_standards"],
                 "latency_seconds": result["latency_seconds"],
             })
@@ -46,7 +45,6 @@ def main():
             print(f"  ERROR on {query_id}: {e}", flush=True)
             results.append({
                 "id": query_id,
-                "expected_standards": item.get("expected_standards", []),
                 "retrieved_standards": [],
                 "latency_seconds": 0.0,
             })
