@@ -9,6 +9,8 @@ __pycache__/
 *$py.class
 *.so
 
+src/frontend/node_modules
+
 # Data & Indices
 data/raw.txt
 data/processed_chunks.json
