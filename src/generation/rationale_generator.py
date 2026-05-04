@@ -4,8 +4,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 client = OpenAI(
-    api_key=os.getenv("GEMINI_API_KEY"),
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1",
+    default_headers={
+        "HTTP-Referer": "http://localhost",
+        "X-Title": "BIS_RAG_Testing"
+    }
 )
 
 QUERY_EXPANSION_PROMPT = """You are a BIS domain expert in building materials.
@@ -42,7 +46,7 @@ def _generate_with_retry(messages: list, max_tokens: int, temperature: float) ->
     for attempt in range(1, 4):
         try:
             response = client.chat.completions.create(
-                model="gemini-2.5-flash",
+                model="google/gemma-3-12b-it:free",
                 messages=messages,
                 max_tokens=max_tokens,
                 temperature=temperature

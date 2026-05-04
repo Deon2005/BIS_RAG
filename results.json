@@ -1,0 +1,52 @@
+[
+  {
+    "id": "PUB-01",
+    "retrieved_standards": [],
+    "latency_seconds": 1.622
+  },
+  {
+    "id": "PUB-02",
+    "retrieved_standards": [],
+    "latency_seconds": 0.58
+  },
+  {
+    "id": "PUB-03",
+    "retrieved_standards": [],
+    "latency_seconds": 0.578
+  },
+  {
+    "id": "PUB-04",
+    "retrieved_standards": [],
+    "latency_seconds": 0.698
+  },
+  {
+    "id": "PUB-05",
+    "retrieved_standards": [],
+    "latency_seconds": 0.614
+  },
+  {
+    "id": "PUB-06",
+    "retrieved_standards": [],
+    "latency_seconds": 1.103
+  },
+  {
+    "id": "PUB-07",
+    "retrieved_standards": [],
+    "latency_seconds": 0.646
+  },
+  {
+    "id": "PUB-08",
+    "retrieved_standards": [],
+    "latency_seconds": 0.527
+  },
+  {
+    "id": "PUB-09",
+    "retrieved_standards": [],
+    "latency_seconds": 0.593
+  },
+  {
+    "id": "PUB-10",
+    "retrieved_standards": [],
+    "latency_seconds": 23.238
+  }
+]
